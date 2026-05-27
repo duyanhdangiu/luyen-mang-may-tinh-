@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luyện trả lời câu hỏi Mạng máy tính</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      color: #111;
+      line-height: 1.5;
+    }
+    header {
+      background: #111827;
+      color: white;
+      padding: 22px 18px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+    }
+    header p {
+      margin: 0;
+      color: #d1d5db;
+    }
+    .wrap {
+      max-width: 1050px;
+      margin: 24px auto;
+      padding: 0 16px 50px;
+    }
+    .tools {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.08);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stats {
+      font-weight: bold;
+      color: #111827;
+    }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #2563eb;
+      color: white;
+    }
+    button.secondary {
+      background: #6b7280;
+    }
+    button.good {
+      background: #16a34a;
+    }
+    button.warn {
+      background: #dc2626;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.08);
+      border-left: 6px solid #111827;
+    }
+    .question {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    textarea {
+      width: 100%;
+      min-height: 95px;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      resize: vertical;
+      font-size: 15px;
+      outline: none;
+    }
+    textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+    }
+    .actions {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      display: none;
+      font-weight: bold;
+    }
+    .correct {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+    .wrong {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+    .answer {
+      display: none;
+      margin-top: 10px;
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 10px;
+      padding: 12px;
+    }
+    .answer b {
+      color: #000;
+    }
+    .hint {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 8px;
+    }
+    .progress {
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      width: 260px;
+      max-width: 100%;
+    }
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: #16a34a;
+      transition: .25s;
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 21px; }
+      .question { font-size: 16px; }
+      .tools { display: block; }
+      .tools > div { margin: 8px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Luyện trả lời 27 câu hỏi Mạng máy tính</h1>
+    <p>Nhập câu trả lời theo ý chính. Hệ thống sẽ kiểm tra đúng/sai dựa trên từ khóa quan trọng.</p>
+  </header>
+
+  <div class="wrap">
+    <div class="tools">
+      <div>
+        <button onclick="checkAll()">Kiểm tra tất cả</button>
+        <button class="good" onclick="showAllAnswers()">Hiện đáp án</button>
+        <button class="secondary" onclick="hideAllAnswers()">Ẩn đáp án</button>
+        <button class="warn" onclick="resetAll()">Làm lại</button>
+      </div>
+      <div>
+        <div class="stats" id="stats">Đúng: 0/27</div>
+        <div class="progress"><div class="bar" id="bar"></div></div>
+      </div>
+    </div>
+
+    <div id="quiz"></div>
+  </div>
+
+<script>
+const questions = [{"q": "1. Tại sao MTU mismatch khiến OSPF process dừng ở State Exchange? Đây là lỗi gì, lý do xảy ra?", "answer": "Đây là lỗi MTU mismatch, nghĩa là MTU giữa 2 thiết bị không giống nhau. Vì MTU sai lệch nên router không trao đổi được database OSPF, làm OSPF dừng ở state Exchange.", "keywords": ["mtu", "khong giong", "khong khop", "database", "exchange"]}, {"q": "2. Multi OSPF khác với single OSPF như thế nào? Tại sao vẫn có Area 0 (Back-bone area) tồn tại trong Multi OSPF?", "answer": "Single-area OSPF chỉ có 1 area. Multi-area OSPF có nhiều area. Area 0 là backbone area, dùng làm cầu nối giữa các area trong Multi-area OSPF.", "keywords": ["single", "1 area", "multi", "nhieu area", "area 0", "backbone", "cau noi"]}, {"q": "3. Tại sao ACL sử dụng wildcard mask mà không sử dụng subnet mask?", "answer": "Subnet mask dùng để xác định phần network. Wildcard mask dùng để xác định phần host cần kiểm tra trong ACL. Vì ACL dùng để lọc địa chỉ IP nên ACL sử dụng wildcard mask.", "keywords": ["subnet", "network", "wildcard", "host", "acl", "loc"]}, {"q": "4. IPsec gồm những thành phần nào? Giải thích cách thức hoạt động của IPsec?", "answer": "IPsec gồm AH, ESP, IKE, PSK, MD5, Diffie-Hellman. IPsec hoạt động bằng cách đàm phán cách mã hóa giữa 2 thiết bị, sau đó truyền dữ liệu qua tunnel bảo mật.", "keywords": ["ah", "esp", "ike", "psk", "md5", "diffie", "dam phan", "ma hoa", "tunnel"]}, {"q": "5. Giao thức Tunnel nào không có cơ chế bảo mật mà phụ thuộc vào IPsec trong quá trình xây dựng VPN tunnel?", "answer": "Đó là GRE. GRE không có cơ chế bảo mật, nên khi xây dựng VPN tunnel thường phải phụ thuộc vào IPsec để bảo mật dữ liệu.", "keywords": ["gre", "khong", "bao mat", "ipsec"]}, {"q": "6. Tại sao người quản trị thường thay đổi giá trị mặc định của Reference Bandwidth trong cách tính Cost/Metric của OSPFv2?", "answer": "Vì hiện nay có các đường truyền tốc độ cao như 10GB. Giá trị mặc định cũ của OSPF không còn phù hợp, nên đổi Reference Bandwidth để OSPF tính cost chính xác hơn.", "keywords": ["bang thong", "10g", "mac dinh", "ospf", "cost", "chinh xac"]}, {"q": "7. Khi cấu hình Dynamic NAT, người quản trị cấu hình thêm 2 ACL, vậy các ACL này đóng vai trò gì trong quá trình cấu hình NAT?", "answer": "ACL dùng để xác định và lọc traffic nội bộ trước khi router thực hiện NAT. Nói dễ hiểu: ACL chọn máy nội bộ nào được đổi IP private sang IP public.", "keywords": ["acl", "xac dinh", "loc", "traffic", "noi bo", "nat", "private", "public"]}, {"q": "8. Thuật toán mã hóa AES/DES/3DES hoạt động như thế nào để bảo đảm IPsec có thể cung cấp an toàn cho dữ liệu truyền tải?", "answer": "AES/DES/3DES dùng để biến đổi dữ liệu cần bảo mật thành chuỗi bit. Nhờ vậy dữ liệu truyền đi được mã hóa và an toàn hơn.", "keywords": ["aes", "des", "3des", "bien doi", "du lieu", "bit", "ma hoa", "an toan"]}, {"q": "9. NAT overload có thể cung cấp bao nhiêu kết nối cho thiết bị trong mạng nội bộ cùng 1 thời điểm? và điều xảy ra khi vượt quá số lượng đó?", "answer": "NAT overload có thể cung cấp tối đa khoảng 65.535 kết nối cùng lúc. Nếu vượt quá số lượng này, các kết nối mới phải chờ đến khi có kết nối cũ kết thúc.", "keywords": ["nat overload", "65535", "ket noi", "vuot", "cho", "ket thuc"]}, {"q": "10. Đặc điểm khác biệt giữa LAN và WAN?", "answer": "LAN là mạng trong phạm vi nhỏ như doanh nghiệp, tòa nhà, có độ trễ thấp và tốc độ cao. WAN là mạng phạm vi rộng như giữa các quốc gia hoặc vùng địa lý, có độ trễ cao hơn và tốc độ bị ảnh hưởng bởi khoảng cách.", "keywords": ["lan", "pham vi nho", "toc do cao", "tre thap", "wan", "pham vi rong", "tre cao", "khoang cach"]}, {"q": "11. Thông thường, OSPF lựa chọn đường đi theo quy tắc gì? nếu thông số quan trọng nhất bằng nhau thì thông số nào sẽ được dùng để quyết định?", "answer": "OSPF chọn đường đi dựa trên Metric/Cost thấp nhất. Nếu cost bằng nhau, OSPF dùng Equal Cost Multi Path để load-balancing.", "keywords": ["ospf", "cost", "thap nhat", "bang nhau", "equal cost", "load balancing"]}, {"q": "12. Các lưu ý khi cấu hình ACL để tránh tình trạng lỗi cấu hình?", "answer": "ACL so sánh rule theo thứ tự từ trên xuống dưới. Vì vậy cần đặt các câu permit ở trên, các câu deny ở dưới để tránh cấu hình sai.", "keywords": ["acl", "thu tu", "tren xuong", "permit", "deny"]}, {"q": "13. Nhược điểm của cơ chế NAT?", "answer": "NAT có 3 nhược điểm chính: giảm hiệu năng mạng, mất kết nối end-to-end, và khó xử lý sự cố.", "keywords": ["giam hieu nang", "end to end", "kho", "su co"]}, {"q": "14. Mô tả hoạt động tạo đường hầm kết nối VPN bằng giao thức GRE? (Câu lệnh để tạo kết nối GRE)", "answer": "GRE tạo một đường hầm tunnel giữa 2 router. Tunnel cần có interface tunnel, IP tunnel, tunnel source và tunnel destination.", "keywords": ["gre", "tunnel", "interface tunnel", "ip", "source", "destination"]}, {"q": "15. OSPF chạy qua bao nhiêu STATE, hoạt động của từng state khi chạy OSPFv2 là gì?", "answer": "OSPF chạy qua các state: Down, Initial, Two-way, Ex-start, Exchange, Loading, Full. Down chưa có kết nối; Initial gửi hello; Two-way nhận phản hồi hello; Ex-start bắt đầu trao đổi database; Exchange đang trao đổi database; Loading cập nhật database; Full hoàn tất.", "keywords": ["down", "initial", "two", "ex", "exchange", "loading", "full"]}, {"q": "16. Name ACL có ưu điểm, khuyết điểm gì so với number ACL, câu lệnh cấu hình trên dòng thiết bị series 3000 khác nhau thế nào?", "answer": "Name ACL có thể sắp xếp thứ tự ACE. Number ACL không sắp xếp được thứ tự ACE, nhập trước nằm trên, nhập sau nằm dưới. Trên dòng series 3000, ACL có thể gán trên interface vlan.", "keywords": ["name acl", "sap xep", "ace", "number acl", "khong sap xep", "interface vlan"]}, {"q": "17. Cơ chế NAT ra đời khi nào? Dùng để giải quyết vấn đề gì? Câu lệnh cấu hình NAT (Static NAT) trên dòng thiết bị series 3000 là?", "answer": "NAT ra đời năm 1994. NAT dùng để giải quyết vấn đề thiếu hụt IPv4. Static NAT là ánh xạ 1 IP private sang 1 IP public cố định.", "keywords": ["1994", "thieu", "ipv4", "static", "private", "public"]}, {"q": "18. Sự khác biệt của 2 cơ chế ESP và AH trong kết nối VPN? Tại sao VPN site-to-site lại sử dụng ESP thay vì AH?", "answer": "AH không mã hóa dữ liệu. ESP có mã hóa dữ liệu. VPN site-to-site thường dùng ESP vì ESP bảo mật tốt hơn và được doanh nghiệp ưu tiên sử dụng hơn.", "keywords": ["ah", "khong ma hoa", "esp", "ma hoa", "bao mat"]}, {"q": "19. Tại sao người quản trị thường dùng địa chỉ loopback làm Router ID cho quá trình OSPF thay vì địa chỉ cổng vật lý?", "answer": "Vì loopback ổn định hơn cổng vật lý. Cổng vật lý có thể bị shutdown, còn loopback thường chỉ mất khi router gặp sự cố. Dùng loopback làm Router ID giúp OSPF ổn định hơn.", "keywords": ["loopback", "on dinh", "cong vat ly", "shutdown", "router id"]}, {"q": "20. Trong quá trình bầu cử DR, câu lệnh nào giúp Router quảng bá Default-route cho các Router còn lại trong quá trình bầu cử?", "answer": "Câu lệnh là: router ospf và default-information originate. Lệnh này dùng để quảng bá default-route cho các router khác trong OSPF.", "keywords": ["router ospf", "default information originate", "default route", "quang ba"]}, {"q": "21. OSPF Metric (Cost): Cách tính Cost mặc định của Cisco là gì?", "answer": "Cost mặc định của Cisco được tính bằng công thức: Cost = 10^8 / interface bandwidth.", "keywords": ["cost", "10", "8", "interface", "bandwidth"]}, {"q": "22. Điều kiện trở thành láng giềng OSPF: Những thông số nào phải khớp nhau?", "answer": "Các thông số phải khớp nhau gồm: subnet mask, hello/dead interval, area ID và password.", "keywords": ["subnet mask", "hello", "dead", "area id", "password"]}, {"q": "23. ACL Standard vs Extended: Khác biệt về tiêu chí lọc dữ liệu là gì?", "answer": "Standard ACL lọc theo IP nguồn và thường đặt gần đích. Extended ACL lọc theo IP nguồn/đích, giao thức và port number, thường đặt gần nguồn.", "keywords": ["standard", "ip nguon", "gan dich", "extended", "ip dich", "giao thuc", "port", "gan nguon"]}, {"q": "24. Quy tắc ACL \"Implicit Deny All\": Điều gì xảy ra nếu một gói tin không khớp dòng nào trong ACL?", "answer": "Nếu gói tin không khớp bất kỳ dòng nào trong ACL thì gói tin đó sẽ bị hủy hoặc bị deny.", "keywords": ["khong khop", "acl", "bi huy", "deny"]}, {"q": "25. NAT Overload (PAT): Tại sao đây là giải pháp NAT phổ biến nhất?", "answer": "Vì NAT Overload cho phép nhiều địa chỉ IP private bên trong dùng chung một địa chỉ IP public. Nó sử dụng port number để phân biệt các gói tin.", "keywords": ["nhieu", "private", "mot", "public", "port", "number", "phan biet"]}, {"q": "26. Trong cấu hình NAT, hãy giải thích bốn loại địa chỉ: Inside Local, Inside Global, Outside Local và Outside Global.", "answer": "Inside Local là IP private của thiết bị trong LAN. Inside Global là IP public đại diện cho thiết bị LAN khi ra Internet. Outside Local là IP của server bên ngoài khi nhìn từ LAN. Outside Global là IP public thật của server nằm ngoài Internet.", "keywords": ["inside local", "private", "lan", "inside global", "public", "outside local", "nhin tu lan", "outside global", "internet"]}, {"q": "27. VPN Site-to-Site vs Remote Access: Phân biệt đối tượng sử dụng.", "answer": "Site-to-site dùng cho doanh nghiệp kết nối với doanh nghiệp, thường cài đặt sẵn kết nối. Remote Access dùng cho cá nhân kết nối vào doanh nghiệp, người dùng tự cài VPN.", "keywords": ["site to site", "doanh nghiep", "doanh nghiep", "remote access", "ca nhan", "cai vpn"]}];
+
+function normalizeText(str) {
+  return (str || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/[^a-z0-9\s\/\-\.]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function scoreAnswer(user, keywords) {
+  const text = normalizeText(user);
+  let hit = 0;
+  const missing = [];
+  keywords.forEach(k => {
+    const nk = normalizeText(k);
+    if (text.includes(nk)) hit++;
+    else missing.push(k);
+  });
+  return { hit, total: keywords.length, missing };
+}
+
+function isCorrect(hit, total) {
+  return hit >= Math.ceil(total * 0.6);
+}
+
+function renderQuiz() {
+  const quiz = document.getElementById("quiz");
+  quiz.innerHTML = questions.map((item, idx) => `
+    <div class="card" id="card-${idx}">
+      <div class="question">${item.q}</div>
+      <textarea id="ans-${idx}" placeholder="Nhập câu trả lời của bạn ở đây..."></textarea>
+      <div class="hint">Mẹo: chỉ cần trả lời đúng ý chính, không cần giống từng chữ.</div>
+      <div class="actions">
+        <button onclick="checkOne(${idx})">Kiểm tra câu này</button>
+        <button class="secondary" onclick="toggleAnswer(${idx})">Hiện/ẩn đáp án</button>
+      </div>
+      <div class="result" id="result-${idx}"></div>
+      <div class="answer" id="key-${idx}"><b>Đáp án ý chính:</b><br>${item.answer}</div>
+    </div>
+  `).join("");
+}
+
+function checkOne(idx) {
+  const user = document.getElementById(`ans-${idx}`).value;
+  const result = document.getElementById(`result-${idx}`);
+  const { hit, total, missing } = scoreAnswer(user, questions[idx].keywords);
+  const ok = isCorrect(hit, total);
+  result.className = "result " + (ok ? "correct" : "wrong");
+  result.dataset.ok = ok ? "1" : "0";
+  if (ok) {
+    result.innerHTML = `✅ Đúng ý chính! Bạn đạt ${hit}/${total} từ khóa.`;
+  } else {
+    result.innerHTML = `❌ Chưa đủ ý. Bạn mới đạt ${hit}/${total} từ khóa.<br>Gợi ý thiếu: ${missing.slice(0, 4).join(", ")}`;
+  }
+  updateStats();
+}
+
+function checkAll() {
+  questions.forEach((_, idx) => checkOne(idx));
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function toggleAnswer(idx) {
+  const key = document.getElementById(`key-${idx}`);
+  key.style.display = key.style.display === "block" ? "none" : "block";
+}
+
+function showAllAnswers() {
+  questions.forEach((_, idx) => document.getElementById(`key-${idx}`).style.display = "block");
+}
+
+function hideAllAnswers() {
+  questions.forEach((_, idx) => document.getElementById(`key-${idx}`).style.display = "none");
+}
+
+function resetAll() {
+  questions.forEach((_, idx) => {
+    document.getElementById(`ans-${idx}`).value = "";
+    const r = document.getElementById(`result-${idx}`);
+    r.className = "result";
+    r.innerHTML = "";
+    r.dataset.ok = "";
+    document.getElementById(`key-${idx}`).style.display = "none";
+  });
+  updateStats();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function updateStats() {
+  let correct = 0;
+  questions.forEach((_, idx) => {
+    const r = document.getElementById(`result-${idx}`);
+    if (r.dataset.ok === "1") correct++;
+  });
+  document.getElementById("stats").textContent = `Đúng: ${correct}/${questions.length}`;
+  document.getElementById("bar").style.width = `${(correct / questions.length) * 100}%`;
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
